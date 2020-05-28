@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -A morri353
+#SBATCH --nodes=2
+#SBATCH --ntasks=24
+#SBATCH --time=4:00:00
+#SBATCH --exclusive=user
+
+
+module --force purge 
+
+module load gcc/7.3.0
+module load openmpi/3.1.4
+module load utilities cmake
+
+source ~/OpenFOAM/OpenFOAM-7/etc/bashrc
+
+cd && cd ../../scratch/brown/szamani/OpenFOAM/szamani-7/run/turbulent/T60_U0
+
+reconstructPar -time '0.041:0.060'

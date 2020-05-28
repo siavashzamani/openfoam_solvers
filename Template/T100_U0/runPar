@@ -1,0 +1,14 @@
+
+
+
+sbatch batch_jobs/para.job1
+sbatch batch_jobs/para.job2
+sbatch batch_jobs/para.job3
+sbatch batch_jobs/para.job4
+sbatch batch_jobs/para.job5
+sbatch batch_jobs/para.job6
+sbatch batch_jobs/para.job7
+sbatch batch_jobs/para.job8
+sbatch batch_jobs/para.job9
+sbatch batch_jobs/para.job10
+sbatch batch_jobs/para.job11

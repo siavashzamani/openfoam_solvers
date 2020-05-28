@@ -1,0 +1,50 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+phases (water air);
+
+phaseChangeTwoPhaseMixture Evaporation;
+
+dropT           dropT [0 0 0 1 0 0 0] 333.15; //Droplet Temperature
+gasT            gasT [0 0 0 1 0 0 0] 333.15; //Gas Temperature
+gasP            gasP [1 -1 2 0 0 0 0] 101325; //Gas Pressure
+gasNu           gasNu [0 2 -1 0 0 0 0] 1.886e-05; //Gas kinematic viscosity - check to be the same as gas phase
+gasU            gasU [0 1 -1 0 0 0 0] 0.0; //Gas phase velocity: used only for global Evaporation Model
+vaporM          vaporM [1 0 0 0 -1 0 0] 0.01802; //Water Vapor: kg/mol
+Runiversal      Runiversal [1 2 -2 -1 -1 0 0] 8.31446261815324; //Universal Gas Constant kg⋅m2·K−1⋅mol−1s−2
+liquidNu        liquidNu [0 2 -1 0 0 0 0] 0.4740e-6; //Liquid kinematic viscosity - check to be the same as liquid phase
+
+
+
+water
+{
+    transportModel  Newtonian;
+    nu              0.4740e-6;
+    rho             983.20;
+}
+
+air
+{
+    transportModel  Newtonian;
+    nu              1.886e-05;
+    rho             1.060;
+}
+
+sigma               0.0662;
+//sigma               2.0;
+
+// ************************************************************************* //
