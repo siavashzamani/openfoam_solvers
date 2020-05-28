@@ -1,0 +1,6 @@
+phaseChangeTwoPhaseMixture/phaseChangeTwoPhaseMixture.C
+phaseChangeTwoPhaseMixture/newPhaseChangeTwoPhaseMixture.C
+Evaporation/Evaporation.C
+
+
+LIB = $(FOAM_USER_LIBBIN)/libphaseChangeTwoPhaseMixtures
