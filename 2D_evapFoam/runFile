@@ -1,0 +1,36 @@
+
+
+
+cp customControlDict/controlDictInitial system/controlDict
+
+blockMesh
+
+checkMesh > checkMesh.txt
+
+cp 0/alpha.water.orig 0/alpha.water
+
+setFields
+
+decomposePar
+
+mpirun -np 8 evapFoam -parallel
+
+mv dataOutput.txt dataOutput_initial.txt
+
+cp customControlDict/controlDictMain system/controlDict
+
+mpirun -np 8 evapFoam -parallel
+
+mv dataOutput.txt dataOutput_main.txt
+
+cp customControlDict/controlDictMain2 system/controlDict
+
+mpirun -np 8 evapFoam -parallel
+
+mv dataOutput.txt dataOutput_main2.txt
+
+cp customControlDict/controlDictMain3 system/controlDict
+
+mpirun -np 8 evapFoam -parallel
+
+reconstructPar

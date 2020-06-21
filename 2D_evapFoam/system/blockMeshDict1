@@ -1,0 +1,164 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.002;
+
+x  12.0; //channel half-length
+x2 24.0; //channel full-length
+y  3.0; //channel half-height
+y2 6.0; //channel full-height
+z  3.0; //channel half-depth
+z2 6.0; //channel full-depth
+
+nx 80; //x direction number of cells
+ny 20; //y direction number of cells
+nz 20; //z direction number of cells
+
+lc 0.2; //cell division ratio - low
+hc 5; //cell division ratio - high
+
+vertices
+(
+
+    (0   0   0)
+    ($x  0   0)
+    ($x2 0   0)
+    (0   $y  0)
+    ($x  $y  0)
+    ($x2 $y  0)
+    (0   $y2 0)
+    ($x  $y2 0)
+    ($x2 $y2 0)
+    (0   0   $z)
+    ($x  0   $z)
+    ($x2 0   $z)
+    (0   $y  $z)
+    ($x  $y  $z)
+    ($x2 $y  $z)
+    (0   $y2 $z)
+    ($x  $y2 $z)
+    ($x2 $y2 $z)
+    (0   0   $z2)
+    ($x  0   $z2)
+    ($x2 0   $z2)
+    (0   $y  $z2)
+    ($x  $y  $z2)
+    ($x2 $y  $z2)
+    (0   $y2 $z2)
+    ($x  $y2 $z2)
+    ($x2 $y2 $z2)
+
+
+);
+
+blocks
+(
+    //hex (0 1 4 3 9 10 13 12) ($nx $ny $nz) simpleGrading (0.05 0.05 0.05)
+    //hex (3 4 7 6 12 13 16 15) ($nx $ny $nz) simpleGrading (0.05 20 0.05)
+    //hex (1 2 5 4 10 11 14 13) ($nx $ny $nz) simpleGrading (20 0.05 0.05)
+    //hex (4 5 8 7 13 14 17 16) ($nx $ny $nz) simpleGrading (20 20 0.05)
+    //hex (9 10 13 12 18 19 22 21) ($nx $ny $nz) simpleGrading (0.05 0.05 20)
+    //hex (12 13 16 15 21 22 25 24) ($nx $ny $nz) simpleGrading (0.05 20 20)
+    //hex (10 11 14 13 19 20 23 22) ($nx $ny $nz) simpleGrading (20 0.05 20)
+    //hex (13 14 17 16 22 23 26 25) ($nx $ny $nz) simpleGrading (20 20 20)
+
+    //hex (0 1 4 3 9 10 13 12) ($nx $ny $nz) simpleGrading ($lc $lc $lc)
+    //hex (3 4 7 6 12 13 16 15) ($nx $ny $nz) simpleGrading ($lc $hc $lc)
+    //hex (1 2 5 4 10 11 14 13) ($nx $ny $nz) simpleGrading ($hc $lc $lc)
+    //hex (4 5 8 7 13 14 17 16) ($nx $ny $nz) simpleGrading ($hc $hc $lc)
+    //hex (9 10 13 12 18 19 22 21) ($nx $ny $nz) simpleGrading ($lc $lc $hc)
+    //hex (12 13 16 15 21 22 25 24) ($nx $ny $nz) simpleGrading ($lc $hc $hc)
+    //hex (10 11 14 13 19 20 23 22) ($nx $ny $nz) simpleGrading ($hc $lc $hc)
+    //hex (13 14 17 16 22 23 26 25) ($nx $ny $nz) simpleGrading ($hc $hc $hc)
+
+    hex (0 1 4 3 9 10 13 12) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (3 4 7 6 12 13 16 15) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (1 2 5 4 10 11 14 13) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (4 5 8 7 13 14 17 16) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (9 10 13 12 18 19 22 21) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (12 13 16 15 21 22 25 24) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (10 11 14 13 19 20 23 22) ($nx $ny $nz) simpleGrading (1 1 1)
+    hex (13 14 17 16 22 23 26 25) ($nx $ny $nz) simpleGrading (1 1 1)
+    
+
+);
+
+edges
+(
+);
+
+boundary
+(
+    leftWall
+    {
+        type patch;
+        faces
+        (
+            (0 9 12 3)
+            (3 12 15 6)
+            (9 18 21 12)
+            (12 21 24 15)
+
+        );
+    }
+    rightWall
+    {
+        type patch;
+        faces
+        (
+            (2 11 14 5)
+            (5 14 17 8)
+            (11 20 23 14)
+            (14 23 26 17)
+        );
+    }
+    topAndBottom
+    {
+        type wall;
+        faces
+        (
+            (6 7 16 15)
+            (15 16 25 24)
+            (7 8 17 16)
+            (16 17 26 25)
+            (0 1 10 9)
+            (9 10 19 18)
+            (1 2 11 10)
+            (10 11 20 19)
+        );
+    }
+    frontAndBack
+    {
+        type wall;
+        faces
+        (
+            (0 1 4 3)
+            (3 4 7 6)
+            (1 2 5 4)
+            (4 5 8 7)
+            (18 19 22 21)
+            (21 22 25 24)
+            (19 20 23 22)
+            (22 23 26 25)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
