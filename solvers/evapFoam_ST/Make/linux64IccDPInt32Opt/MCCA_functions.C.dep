@@ -1,0 +1,6 @@
+$(OBJECTS_DIR)/MCCA_functions.C.dep: \
+MCCA_functions.C \
+MCCA_functions.H \
+
+MCCA_functions.H :
+
